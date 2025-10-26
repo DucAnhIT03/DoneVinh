@@ -1,20 +1,57 @@
-import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { Station } from './station.entity';
-import { Bus } from './bus.entity';
 
-@Entity('bus_station')
+@Entity('bus_stations')
 export class BusStation {
-  @PrimaryColumn({ type: 'int' })
-  station_id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @PrimaryColumn({ type: 'int' })
-  bus_id: number;
+  @Column()
+  stationId: number;
 
-  @ManyToOne(() => Station, station => station.id)
-  @JoinColumn({ name: 'station_id' })
+  @Column()
+  busId: number;
+
+  @Column('datetime')
+  arrivalTime: Date;
+
+  @Column('datetime')
+  departureTime: Date;
+
+  @Column({ default: 0 })
+  sequence: number;
+
+  @Column({ default: true })
+  isActive: boolean;
+
+  @Column({ default: '' })
+  platform: string;
+
+  @Column({ default: '' })
+  gate: string;
+
+  @Column({ default: 0 })
+  price: number;
+
+  @Column({ default: '' })
+  notes: string;
+
+  @Column({ default: 0 })
+  availableSeats: number;
+
+  @Column({ default: 0 })
+  totalSeats: number;
+
+  @ManyToOne(() => Station)
+  @JoinColumn({ name: 'stationId' })
   station: Station;
 
-  @ManyToOne(() => Bus, bus => bus.id)
-  @JoinColumn({ name: 'bus_id' })
-  bus: Bus;
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
+
+
+

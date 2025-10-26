@@ -189,3 +189,5 @@ npm run test
 5. **Testing**: Cấu trúc rõ ràng cho unit tests
 6. **Team work**: Nhiều developer có thể làm việc song song
 
+
+

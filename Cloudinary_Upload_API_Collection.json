@@ -1,0 +1,225 @@
+{
+  "info": {
+    "name": "Cloudinary Upload API Collection",
+    "description": "Test collection for Cloudinary upload, remove, and transform APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Upload Single Image",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "image",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "folder",
+              "value": "bus-booking/test",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/upload/single",
+          "host": ["{{baseUrl}}"],
+          "path": ["upload", "single"]
+        }
+      }
+    },
+    {
+      "name": "Upload Multiple Images",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "images",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "folder",
+              "value": "bus-booking/gallery",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/upload/multiple",
+          "host": ["{{baseUrl}}"],
+          "path": ["upload", "multiple"]
+        }
+      }
+    },
+    {
+      "name": "Get Image Info",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"publicId\": \"{{public_id}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/upload/info",
+          "host": ["{{baseUrl}}"],
+          "path": ["upload", "info"]
+        }
+      }
+    },
+    {
+      "name": "Transform Image URL",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"publicId\": \"{{public_id}}\",\n  \"transformations\": {\n    \"width\": 500,\n    \"height\": 300,\n    \"crop\": \"fill\",\n    \"quality\": \"auto\",\n    \"format\": \"webp\"\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/upload/transform",
+          "host": ["{{baseUrl}}"],
+          "path": ["upload", "transform"]
+        }
+      }
+    },
+    {
+      "name": "Generate Image URL",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"publicId\": \"{{public_id}}\",\n  \"width\": 800,\n  \"height\": 600,\n  \"crop\": \"fit\",\n  \"quality\": \"high\",\n  \"format\": \"jpg\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/upload/generate-url",
+          "host": ["{{baseUrl}}"],
+          "path": ["upload", "generate-url"]
+        }
+      }
+    },
+    {
+      "name": "Remove Single Image",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"publicId\": \"{{public_id}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/upload/single",
+          "host": ["{{baseUrl}}"],
+          "path": ["upload", "single"]
+        }
+      }
+    },
+    {
+      "name": "Remove Multiple Images",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"publicIds\": [\n    \"{{public_id}}\",\n    \"bus-booking/gallery/image2\",\n    \"bus-booking/gallery/image3\"\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/upload/multiple",
+          "host": ["{{baseUrl}}"],
+          "path": ["upload", "multiple"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "jwt_token",
+      "value": "your-jwt-token-here"
+    },
+    {
+      "key": "public_id",
+      "value": "sample-public-id"
+    }
+  ]
+}
+

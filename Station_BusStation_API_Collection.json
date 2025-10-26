@@ -1,0 +1,362 @@
+{
+  "info": {
+    "name": "Station & Bus Station API Collection",
+    "description": "Complete API collection for Station and Bus Station management",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Station APIs",
+      "item": [
+        {
+          "name": "1. Create Station",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Central Bus Station\",\n  \"address\": \"123 Main Street\",\n  \"city\": \"Ho Chi Minh City\",\n  \"province\": \"Ho Chi Minh\",\n  \"latitude\": 10.7769,\n  \"longitude\": 106.7009,\n  \"isActive\": true,\n  \"description\": \"Main bus station in the city center\",\n  \"phone\": \"+84 28 1234 5678\",\n  \"email\": \"info@centralstation.com\",\n  \"facilities\": [\"WiFi\", \"Restaurant\", \"ATM\", \"Parking\"],\n  \"capacity\": 1000\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/stations",
+              "host": ["{{baseUrl}}"],
+              "path": ["stations"]
+            }
+          }
+        },
+        {
+          "name": "2. Get All Stations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/stations?page=1&limit=10&sortBy=name&sortOrder=asc",
+              "host": ["{{baseUrl}}"],
+              "path": ["stations"],
+              "query": [
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "10"},
+                {"key": "sortBy", "value": "name"},
+                {"key": "sortOrder", "value": "asc"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "3. Get Station by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/stations/{{station_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["stations", "{{station_id}}"]
+            }
+          }
+        },
+        {
+          "name": "4. Get Stations by City",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/stations/city/Ho Chi Minh City",
+              "host": ["{{baseUrl}}"],
+              "path": ["stations", "city", "Ho Chi Minh City"]
+            }
+          }
+        },
+        {
+          "name": "5. Get Stations by Province",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/stations/province/Ho Chi Minh",
+              "host": ["{{baseUrl}}"],
+              "path": ["stations", "province", "Ho Chi Minh"]
+            }
+          }
+        },
+        {
+          "name": "6. Get Nearby Stations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/stations/nearby?latitude=10.7769&longitude=106.7009&radius=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["stations", "nearby"],
+              "query": [
+                {"key": "latitude", "value": "10.7769"},
+                {"key": "longitude", "value": "106.7009"},
+                {"key": "radius", "value": "5"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "7. Get Station Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/stations/{{station_id}}/statistics",
+              "host": ["{{baseUrl}}"],
+              "path": ["stations", "{{station_id}}", "statistics"]
+            }
+          }
+        },
+        {
+          "name": "8. Update Station",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Central Bus Station\",\n  \"capacity\": 1200,\n  \"facilities\": [\"WiFi\", \"Restaurant\", \"ATM\", \"Parking\", \"Waiting Room\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/stations/{{station_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["stations", "{{station_id}}"]
+            }
+          }
+        },
+        {
+          "name": "9. Delete Station",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/stations/{{station_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["stations", "{{station_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bus Station APIs",
+      "item": [
+        {
+          "name": "1. Create Bus Station",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"stationId\": \"{{station_id}}\",\n  \"busId\": \"{{bus_id}}\",\n  \"arrivalTime\": \"2024-01-15T08:00:00.000Z\",\n  \"departureTime\": \"2024-01-15T08:30:00.000Z\",\n  \"sequence\": 1,\n  \"isActive\": true,\n  \"platform\": \"Platform A\",\n  \"gate\": \"Gate 1\",\n  \"price\": 50000,\n  \"notes\": \"First stop\",\n  \"availableSeats\": 45,\n  \"totalSeats\": 50\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bus-stations",
+              "host": ["{{baseUrl}}"],
+              "path": ["bus-stations"]
+            }
+          }
+        },
+        {
+          "name": "2. Get All Bus Stations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bus-stations?page=1&limit=10&sortBy=arrivalTime&sortOrder=asc",
+              "host": ["{{baseUrl}}"],
+              "path": ["bus-stations"],
+              "query": [
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "10"},
+                {"key": "sortBy", "value": "arrivalTime"},
+                {"key": "sortOrder", "value": "asc"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "3. Get Bus Station by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bus-stations/{{bus_station_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["bus-stations", "{{bus_station_id}}"]
+            }
+          }
+        },
+        {
+          "name": "4. Get Bus Stations by Station",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bus-stations/station/{{station_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["bus-stations", "station", "{{station_id}}"]
+            }
+          }
+        },
+        {
+          "name": "5. Get Bus Stations by Bus",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bus-stations/bus/{{bus_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["bus-stations", "bus", "{{bus_id}}"]
+            }
+          }
+        },
+        {
+          "name": "6. Get Schedule by Station",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bus-stations/schedule/station/{{station_id}}?date=2024-01-15",
+              "host": ["{{baseUrl}}"],
+              "path": ["bus-stations", "schedule", "station", "{{station_id}}"],
+              "query": [
+                {"key": "date", "value": "2024-01-15"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "7. Get Schedule by Bus",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bus-stations/schedule/bus/{{bus_id}}?date=2024-01-15",
+              "host": ["{{baseUrl}}"],
+              "path": ["bus-stations", "schedule", "bus", "{{bus_id}}"],
+              "query": [
+                {"key": "date", "value": "2024-01-15"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "8. Get Bus Station Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bus-stations/{{bus_station_id}}/statistics",
+              "host": ["{{baseUrl}}"],
+              "path": ["bus-stations", "{{bus_station_id}}", "statistics"]
+            }
+          }
+        },
+        {
+          "name": "9. Update Bus Station",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"arrivalTime\": \"2024-01-15T08:15:00.000Z\",\n  \"departureTime\": \"2024-01-15T08:45:00.000Z\",\n  \"availableSeats\": 40,\n  \"price\": 55000\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bus-stations/{{bus_station_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["bus-stations", "{{bus_station_id}}"]
+            }
+          }
+        },
+        {
+          "name": "10. Delete Bus Station",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bus-stations/{{bus_station_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["bus-stations", "{{bus_station_id}}"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "description": "Base URL của API"
+    },
+    {
+      "key": "jwt_token",
+      "value": "your-jwt-token-here",
+      "description": "JWT token cho authentication"
+    },
+    {
+      "key": "station_id",
+      "value": "station-id-here",
+      "description": "Station ID để test"
+    },
+    {
+      "key": "bus_id",
+      "value": "bus-id-here",
+      "description": "Bus ID để test"
+    },
+    {
+      "key": "bus_station_id",
+      "value": "bus-station-id-here",
+      "description": "Bus Station ID để test"
+    }
+  ]
+}
+
+
+

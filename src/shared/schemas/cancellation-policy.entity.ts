@@ -32,3 +32,5 @@ export class CancellationPolicy {
   @JoinColumn({ name: 'route_id' })
   route: Route;
 }
+
+

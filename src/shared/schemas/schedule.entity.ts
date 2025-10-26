@@ -1,4 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+} from 'typeorm';
 import { Route } from './route.entity';
 import { Bus } from './bus.entity';
 import { Ticket } from './ticket.entity';
@@ -6,7 +15,7 @@ import { Ticket } from './ticket.entity';
 export enum ScheduleStatus {
   AVAILABLE = 'AVAILABLE',
   FULL = 'FULL',
-  CANCELLED = 'CANCELLED'
+  CANCELLED = 'CANCELLED',
 }
 
 @Entity('schedules')
@@ -14,45 +23,46 @@ export class Schedule {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: false })
-  route_id: number;
+  @Column({ name: 'route_id' })
+  routeId: number;
 
-  @Column({ nullable: false })
-  bus_id: number;
+  @Column({ name: 'bus_id' })
+  busId: number;
 
-  @Column({ type: 'datetime', nullable: false })
-  departure_time: Date;
+  @Column({ name: 'departure_time', type: 'datetime' })
+  departureTime: Date;
 
-  @Column({ type: 'datetime', nullable: false })
-  arrival_time: Date;
+  @Column({ name: 'arrival_time', type: 'datetime' })
+  arrivalTime: Date;
 
-  @Column({ type: 'int', nullable: false })
-  available_seat: number;
+  @Column({ name: 'available_seat' })
+  availableSeat: number;
 
-  @Column({ type: 'int', nullable: false })
-  total_seats: number;
+  @Column({ name: 'total_seats' })
+  totalSeats: number;
 
-  @Column({ 
-    type: 'enum', 
-    enum: ScheduleStatus, 
-    default: ScheduleStatus.AVAILABLE 
+  @Column({
+    type: 'enum',
+    enum: ScheduleStatus,
+    default: ScheduleStatus.AVAILABLE,
   })
   status: ScheduleStatus;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 
-  @ManyToOne(() => Route, route => route.schedules)
+  // Relations
+  @ManyToOne(() => Route, (route) => route.schedules)
   @JoinColumn({ name: 'route_id' })
   route: Route;
 
-  @ManyToOne(() => Bus, bus => bus.schedules)
+  @ManyToOne(() => Bus, (bus) => bus.schedules)
   @JoinColumn({ name: 'bus_id' })
   bus: Bus;
 
-  @OneToMany(() => Ticket, ticket => ticket.schedule)
+  @OneToMany(() => Ticket, (ticket) => ticket.schedule)
   tickets: Ticket[];
 }

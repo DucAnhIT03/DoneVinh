@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { Bus } from './bus.entity';
 
 @Entity('bus_images')
@@ -11,6 +11,12 @@ export class BusImage {
 
   @Column({ nullable: false })
   bus_id: number;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 
   @ManyToOne(() => Bus, bus => bus.busImages)
   @JoinColumn({ name: 'bus_id' })
